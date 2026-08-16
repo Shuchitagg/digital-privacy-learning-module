@@ -25,4 +25,4 @@ This is a self-contained interactive learning module created as a professional-l
 Designed and developed a self-paced professional-learning module featuring learner objectives, scenario-based instruction, interactive questions, drag-and-drop practice, automated scoring, progress tracking, reflection prompts, and accessible navigation. Built as a platform-neutral demonstration of digital-learning content development and virtual user support.
 
 ## Important note
-This is an original portfolio demonstration. It is designed to demonstrate transferable skills relevant to digital-learning platforms.
+This is a portfolio demonstration which is designed to demonstrate transferable skills relevant to digital-learning platforms.
