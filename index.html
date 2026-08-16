@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Privacy & Safe Online Practices</title>
+  <style>
+    :root{
+      --navy:#15324b;
+      --blue:#1e6ea8;
+      --teal:#177e89;
+      --mint:#e8f5f2;
+      --sky:#eef6fb;
+      --gold:#f5b642;
+      --red:#b93636;
+      --green:#1f7a4c;
+      --ink:#1e2933;
+      --muted:#607080;
+      --border:#d6e0e8;
+      --white:#ffffff;
+      --shadow:0 10px 30px rgba(21,50,75,.12);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--ink);
+      background:linear-gradient(135deg,#f6fbff 0%,#eef8f5 100%);
+      line-height:1.55;
+    }
+    .skip-link{
+      position:absolute; left:-9999px; top:auto;
+      background:#000; color:#fff; padding:.7rem 1rem; z-index:999;
+    }
+    .skip-link:focus{left:1rem;top:1rem}
+    header{
+      background:linear-gradient(120deg,var(--navy),var(--blue));
+      color:#fff;
+      padding:2.4rem 1.2rem 3.2rem;
+    }
+    .header-inner,.container{max-width:1050px;margin:0 auto}
+    .eyebrow{
+      display:inline-block;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.28);
+      border-radius:999px;
+      padding:.35rem .75rem;
+      font-size:.85rem;
+      letter-spacing:.03em;
+      margin-bottom:.8rem;
+    }
+    h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.1;margin:.2rem 0 .8rem}
+    .subtitle{font-size:1.1rem;max-width:780px;margin:0;color:#eaf4fb}
+    .progress-shell{
+      max-width:1050px;margin:-1.4rem auto 1.5rem;
+      background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:1rem 1.2rem;
+    }
+    .progress-row{display:flex;justify-content:space-between;gap:1rem;align-items:center}
+    .progress-track{
+      flex:1;height:12px;background:#e8edf1;border-radius:999px;overflow:hidden
+    }
+    .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--blue));transition:width .3s}
+    .progress-text{font-weight:700;color:var(--navy);white-space:nowrap}
+    main{padding:0 1.2rem 3rem}
+    .card{
+      background:#fff;border:1px solid var(--border);border-radius:18px;
+      box-shadow:0 6px 20px rgba(21,50,75,.07);
+      margin:1.2rem 0;padding:1.4rem;
+    }
+    .module-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:1rem
+    }
+    .objective{
+      background:var(--sky);border-left:5px solid var(--blue);
+      border-radius:12px;padding:1rem;
+    }
+    h2{color:var(--navy);margin-top:0}
+    h3{color:var(--navy)}
+    .lesson{
+      display:none;
+    }
+    .lesson.active{display:block}
+    .lesson-nav{
+      display:flex;flex-wrap:wrap;gap:.55rem;margin:1rem 0 1.4rem;
+    }
+    .lesson-nav button,.btn{
+      border:0;border-radius:10px;padding:.75rem 1rem;font-weight:700;cursor:pointer;
+      background:var(--navy);color:#fff;
+    }
+    .lesson-nav button[aria-current="step"]{background:var(--teal)}
+    .btn.secondary{background:#e8eef3;color:var(--navy);border:1px solid var(--border)}
+    .btn.gold{background:var(--gold);color:#33260b}
+    .btn:focus,.lesson-nav button:focus,input:focus,textarea:focus,select:focus{
+      outline:3px solid rgba(245,182,66,.65);outline-offset:2px
+    }
+    .callout{
+      background:var(--mint);border-left:5px solid var(--teal);
+      padding:1rem;border-radius:12px;margin:1rem 0;
+    }
+    .danger{
+      background:#fff1f1;border-left-color:var(--red)
+    }
+    .scenario{
+      background:#f8fafc;border:1px dashed #9eb2c2;border-radius:12px;padding:1rem
+    }
+    .choice-list{display:grid;gap:.7rem;margin:1rem 0}
+    .choice{
+      display:flex;align-items:flex-start;gap:.65rem;padding:.8rem;
+      border:1px solid var(--border);border-radius:10px;background:#fff;
+    }
+    .feedback{
+      display:none;margin-top:.8rem;padding:.8rem;border-radius:10px;font-weight:700
+    }
+    .feedback.correct{display:block;background:#e8f6ee;color:var(--green)}
+    .feedback.incorrect{display:block;background:#fff0f0;color:var(--red)}
+    .drag-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .drag-items,.drop-zone{
+      min-height:170px;border:2px dashed #9fb3c2;border-radius:12px;padding:1rem;background:#fbfdff
+    }
+    .drag-item{
+      padding:.7rem;margin:.5rem 0;background:#fff;border:1px solid var(--border);
+      border-radius:9px;cursor:grab;box-shadow:0 2px 7px rgba(0,0,0,.05)
+    }
+    .drop-zone.good{border-color:#6cb08b;background:#f1fbf5}
+    .drop-zone.risky{border-color:#d58a8a;background:#fff7f7}
+    .drop-zone h4{margin:.2rem 0 .8rem}
+    .quiz-question{
+      border-top:1px solid var(--border);padding-top:1rem;margin-top:1rem
+    }
+    .score-panel{
+      text-align:center;background:linear-gradient(135deg,var(--sky),var(--mint));
+      border-radius:14px;padding:1.3rem;margin-top:1rem
+    }
+    .score-number{font-size:2.4rem;font-weight:800;color:var(--navy)}
+    .badge{
+      display:inline-block;border-radius:999px;padding:.35rem .7rem;
+      background:#e8eef3;color:var(--navy);font-size:.85rem;font-weight:700
+    }
+    .two-col{display:grid;grid-template-columns:1.2fr .8fr;gap:1rem}
+    .checklist{padding-left:1.1rem}
+    .checklist li{margin:.45rem 0}
+    footer{
+      text-align:center;color:var(--muted);padding:1.5rem;font-size:.9rem
+    }
+    .hidden{display:none!important}
+    @media (max-width:800px){
+      .module-grid,.two-col,.drag-grid{grid-template-columns:1fr}
+      .progress-row{align-items:flex-start;flex-direction:column}
+      .progress-track{width:100%}
+    }
+    @media print{
+      .lesson{display:block!important}
+      .lesson-nav,.progress-shell,.btn{display:none!important}
+      body{background:#fff}
+      .card{box-shadow:none;break-inside:avoid}
+    }
+  </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to learning content</a>
+
+<header>
+  <div class="header-inner">
+    <span class="eyebrow">Interactive Professional Learning Sample</span>
+    <h1>Digital Privacy &amp; Safe Online Practices</h1>
+    <p class="subtitle">
+      A short, self-paced module that helps learners recognize online risks,
+      make safer choices, and protect personal information.
+    </p>
+  </div>
+</header>
+
+<div class="progress-shell" aria-label="Module progress">
+  <div class="progress-row">
+    <div class="progress-track" aria-hidden="true">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-text" id="progressText">0% complete</div>
+  </div>
+</div>
+
+<main id="main" class="container">
+  <section class="card">
+    <h2>Learning objectives</h2>
+    <div class="module-grid">
+      <div class="objective"><strong>Recognize</strong><br>common privacy and phishing risks.</div>
+      <div class="objective"><strong>Apply</strong><br>safe password and account practices.</div>
+      <div class="objective"><strong>Respond</strong><br>appropriately when something looks suspicious.</div>
+    </div>
+    <p><span class="badge">Estimated time: 15–20 minutes</span></p>
+  </section>
+
+  <nav class="lesson-nav" aria-label="Module sections">
+    <button data-step="0" aria-current="step">1. Introduction</button>
+    <button data-step="1">2. Strong Accounts</button>
+    <button data-step="2">3. Spot the Risk</button>
+    <button data-step="3">4. Sort the Actions</button>
+    <button data-step="4">5. Knowledge Check</button>
+    <button data-step="5">6. Reflection</button>
+  </nav>
+
+  <section class="lesson active card" data-lesson="0">
+    <h2>1. Why digital privacy matters</h2>
+    <div class="two-col">
+      <div>
+        <p>
+          Digital privacy means having reasonable control over how personal information is
+          collected, shared, stored, and used. Personal information can include your name,
+          location, passwords, photographs, health details, school or work records, and browsing activity.
+        </p>
+        <div class="callout">
+          <strong>Key idea:</strong> Before sharing information online, pause and ask:
+          “Who needs this, why do they need it, and what could happen if it is shared further?”
+        </div>
+      </div>
+      <div class="scenario">
+        <h3>Quick reflection</h3>
+        <label for="privacyReflection">Name one type of information you would avoid posting publicly.</label>
+        <textarea id="privacyReflection" rows="5" style="width:100%;margin-top:.5rem"></textarea>
+      </div>
+    </div>
+    <button class="btn" onclick="nextLesson()">Continue</button>
+  </section>
+
+  <section class="lesson card" data-lesson="1">
+    <h2>2. Build stronger accounts</h2>
+    <ul class="checklist">
+      <li>Use a long, unique passphrase for each important account.</li>
+      <li>Turn on multi-factor authentication when available.</li>
+      <li>Use a trusted password manager rather than reusing passwords.</li>
+      <li>Review account-recovery information regularly.</li>
+      <li>Never share verification codes with another person.</li>
+    </ul>
+
+    <div class="scenario">
+      <h3>Scenario: Which password is stronger?</h3>
+      <p>Select the best option.</p>
+      <div class="choice-list">
+        <label class="choice"><input type="radio" name="passwordQ" value="a"> Summer2026</label>
+        <label class="choice"><input type="radio" name="passwordQ" value="b"> MyDog123</label>
+        <label class="choice"><input type="radio" name="passwordQ" value="c"> Cedar-Train-Lantern-47!</label>
+      </div>
+      <button class="btn gold" onclick="checkPassword()">Check answer</button>
+      <div id="passwordFeedback" class="feedback" role="status"></div>
+    </div>
+
+    <p>
+      A longer passphrase made of unrelated words is generally harder to guess and easier to remember
+      than a short password based on familiar personal information.
+    </p>
+    <button class="btn secondary" onclick="previousLesson()">Back</button>
+    <button class="btn" onclick="nextLesson()">Continue</button>
+  </section>
+
+  <section class="lesson card" data-lesson="2">
+    <h2>3. Spot the risk</h2>
+    <div class="scenario">
+      <h3>Email message</h3>
+      <p><strong>Subject:</strong> URGENT: Your account will be closed today</p>
+      <p>
+        “We noticed suspicious activity. Click the link below immediately and enter your password
+        to keep your account active.”
+      </p>
+      <p><em>The sender address contains an unfamiliar spelling and the link does not match the organization’s official website.</em></p>
+    </div>
+
+    <h3>Which warning signs are present?</h3>
+    <div class="choice-list">
+      <label class="choice"><input type="checkbox" class="phish" value="urgency"> Pressure and urgency</label>
+      <label class="choice"><input type="checkbox" class="phish" value="sender"> Suspicious sender address</label>
+      <label class="choice"><input type="checkbox" class="phish" value="link"> Mismatched or unfamiliar link</label>
+      <label class="choice"><input type="checkbox" class="phish" value="request"> Request for a password</label>
+      <label class="choice"><input type="checkbox" class="phish" value="logo"> Use of an organization’s logo</label>
+    </div>
+    <button class="btn gold" onclick="checkPhishing()">Check answer</button>
+    <div id="phishFeedback" class="feedback" role="status"></div>
+
+    <div class="callout danger">
+      <strong>Safer response:</strong> Do not click the link. Open the organization’s official website or app
+      yourself, check the account there, and report the message through an approved channel.
+    </div>
+
+    <button class="btn secondary" onclick="previousLesson()">Back</button>
+    <button class="btn" onclick="nextLesson()">Continue</button>
+  </section>
+
+  <section class="lesson card" data-lesson="3">
+    <h2>4. Sort the actions</h2>
+    <p>
+      Drag each action into <strong>Safer Practice</strong> or <strong>Risky Practice</strong>.
+      Keyboard users may select an item and then choose a destination using the buttons beneath it.
+    </p>
+
+    <div class="drag-grid">
+      <div>
+        <h3>Actions</h3>
+        <div class="drag-items" id="dragItems">
+          <div class="drag-item" draggable="true" data-category="good" tabindex="0">Enable multi-factor authentication.</div>
+          <div class="drag-item" draggable="true" data-category="risky" tabindex="0">Reuse the same password for every account.</div>
+          <div class="drag-item" draggable="true" data-category="good" tabindex="0">Check privacy settings after an app update.</div>
+          <div class="drag-item" draggable="true" data-category="risky" tabindex="0">Post a photo of an identification card.</div>
+          <div class="drag-item" draggable="true" data-category="good" tabindex="0">Verify a suspicious request using an official contact method.</div>
+        </div>
+      </div>
+      <div>
+        <div class="drop-zone good" data-zone="good">
+          <h4>Safer Practice</h4>
+        </div>
+        <div class="drop-zone risky" data-zone="risky" style="margin-top:1rem">
+          <h4>Risky Practice</h4>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1rem">
+      <button class="btn gold" onclick="checkSort()">Check sorting</button>
+      <button class="btn secondary" onclick="resetSort()">Reset</button>
+      <div id="sortFeedback" class="feedback" role="status"></div>
+    </div>
+
+    <button class="btn secondary" onclick="previousLesson()">Back</button>
+    <button class="btn" onclick="nextLesson()">Continue</button>
+  </section>
+
+  <section class="lesson card" data-lesson="4">
+    <h2>5. Final knowledge check</h2>
+    <form id="quizForm">
+      <div class="quiz-question">
+        <p><strong>1. What is the safest way to respond to an unexpected password-reset email?</strong></p>
+        <label class="choice"><input type="radio" name="q1" value="a"> Click the email link immediately.</label>
+        <label class="choice"><input type="radio" name="q1" value="b"> Open the official website or app directly and check the account.</label>
+        <label class="choice"><input type="radio" name="q1" value="c"> Forward the email to friends.</label>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>2. Which practice best protects multiple online accounts?</strong></p>
+        <label class="choice"><input type="radio" name="q2" value="a"> Use one memorable password everywhere.</label>
+        <label class="choice"><input type="radio" name="q2" value="b"> Use unique passphrases and multi-factor authentication.</label>
+        <label class="choice"><input type="radio" name="q2" value="c"> Save passwords in a public document.</label>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>3. Which information is most risky to post publicly?</strong></p>
+        <label class="choice"><input type="radio" name="q3" value="a"> A favourite movie title.</label>
+        <label class="choice"><input type="radio" name="q3" value="b"> A general hobby.</label>
+        <label class="choice"><input type="radio" name="q3" value="c"> A photograph showing an identification number.</label>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>4. A message creates urgency and asks for a verification code. What should you do?</strong></p>
+        <label class="choice"><input type="radio" name="q4" value="a"> Share the code to prevent account closure.</label>
+        <label class="choice"><input type="radio" name="q4" value="b"> Stop, verify independently, and do not share the code.</label>
+        <label class="choice"><input type="radio" name="q4" value="c"> Reply with additional personal details.</label>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>5. Why should privacy settings be reviewed periodically?</strong></p>
+        <label class="choice"><input type="radio" name="q5" value="a"> Apps and services may update features or defaults.</label>
+        <label class="choice"><input type="radio" name="q5" value="b"> It makes the device charge faster.</label>
+        <label class="choice"><input type="radio" name="q5" value="c"> It removes the need for passwords.</label>
+      </div>
+
+      <button type="button" class="btn gold" onclick="gradeQuiz()">Submit knowledge check</button>
+    </form>
+
+    <div id="scorePanel" class="score-panel hidden" role="status">
+      <div class="score-number" id="scoreNumber">0/5</div>
+      <p id="scoreMessage"></p>
+      <button class="btn secondary" onclick="window.print()">Print results</button>
+    </div>
+
+    <button class="btn secondary" onclick="previousLesson()">Back</button>
+    <button class="btn" onclick="nextLesson()">Continue</button>
+  </section>
+
+  <section class="lesson card" data-lesson="5">
+    <h2>6. Reflection and action plan</h2>
+    <label for="actionPlan"><strong>What is one action you will take this week to improve your digital privacy?</strong></label>
+    <textarea id="actionPlan" rows="5" style="width:100%;margin:.7rem 0 1rem"></textarea>
+
+    <h3>Optional module feedback</h3>
+    <label for="rating">How useful was this module?</label>
+    <select id="rating" style="display:block;margin:.5rem 0 1rem;padding:.65rem">
+      <option value="">Select a rating</option>
+      <option>Very useful</option>
+      <option>Useful</option>
+      <option>Somewhat useful</option>
+      <option>Not useful yet</option>
+    </select>
+
+    <label for="comments">What would improve the module?</label>
+    <textarea id="comments" rows="4" style="width:100%;margin:.5rem 0"></textarea>
+
+    <div class="callout">
+      <strong>Completion message:</strong> You have reviewed practical ways to recognize risks,
+      strengthen accounts, and respond safely to suspicious online activity.
+    </div>
+
+    <button class="btn secondary" onclick="previousLesson()">Back</button>
+    <button class="btn" onclick="completeModule()">Mark module complete</button>
+    <div id="completeFeedback" class="feedback" role="status"></div>
+  </section>
+</main>
+
+<footer>
+  Portfolio demonstration module. All scenarios and data are fictional and created for educational purposes.
+</footer>
+
+<script>
+  const lessons = [...document.querySelectorAll('.lesson')];
+  const navButtons = [...document.querySelectorAll('.lesson-nav button')];
+  const progressFill = document.getElementById('progressFill');
+  const progressText = document.getElementById('progressText');
+  let currentLesson = 0;
+  const completed = new Set();
+
+  function showLesson(index){
+    currentLesson = Math.max(0, Math.min(index, lessons.length - 1));
+    lessons.forEach((lesson,i)=>lesson.classList.toggle('active',i===currentLesson));
+    navButtons.forEach((btn,i)=>{
+      if(i===currentLesson) btn.setAttribute('aria-current','step');
+      else btn.removeAttribute('aria-current');
+    });
+    completed.add(currentLesson);
+    updateProgress();
+    window.scrollTo({top:document.querySelector('.lesson-nav').offsetTop - 20,behavior:'smooth'});
+  }
+
+  function nextLesson(){ showLesson(currentLesson + 1); }
+  function previousLesson(){ showLesson(currentLesson - 1); }
+
+  navButtons.forEach(btn=>btn.addEventListener('click',()=>showLesson(Number(btn.dataset.step))));
+
+  function updateProgress(forceComplete=false){
+    const percent = forceComplete ? 100 : Math.round((completed.size / lessons.length) * 100);
+    progressFill.style.width = percent + '%';
+    progressText.textContent = percent + '% complete';
+  }
+
+  function setFeedback(el,correct,message){
+    el.className = 'feedback ' + (correct ? 'correct' : 'incorrect');
+    el.textContent = message;
+  }
+
+  function checkPassword(){
+    const selected = document.querySelector('input[name="passwordQ"]:checked');
+    const box = document.getElementById('passwordFeedback');
+    if(!selected) return setFeedback(box,false,'Choose an answer first.');
+    const correct = selected.value === 'c';
+    setFeedback(box,correct,correct
+      ? 'Correct. A long, unique passphrase is the strongest option shown.'
+      : 'Try again. Avoid short passwords based on common words or personal details.');
+  }
+
+  function checkPhishing(){
+    const selected = [...document.querySelectorAll('.phish:checked')].map(x=>x.value);
+    const required = ['urgency','sender','link','request'];
+    const correct = required.every(x=>selected.includes(x)) && !selected.includes('logo');
+    setFeedback(document.getElementById('phishFeedback'),correct,
+      correct
+      ? 'Correct. Urgency, a suspicious sender, a mismatched link, and a request for a password are warning signs.'
+      : 'Review the message again. A logo alone does not prove that a message is legitimate.');
+  }
+
+  let dragged = null;
+  document.querySelectorAll('.drag-item').forEach(item=>{
+    item.addEventListener('dragstart',()=>dragged=item);
+    item.addEventListener('click',()=>{
+      document.querySelectorAll('.drag-item').forEach(x=>x.style.outline='');
+      item.style.outline='3px solid #f5b642';
+      dragged=item;
+    });
+  });
+
+  document.querySelectorAll('.drop-zone').forEach(zone=>{
+    zone.addEventListener('dragover',e=>e.preventDefault());
+    zone.addEventListener('drop',e=>{
+      e.preventDefault();
+      if(dragged){ zone.appendChild(dragged); dragged.style.outline=''; dragged=null; }
+    });
+    zone.addEventListener('click',()=>{
+      if(dragged){ zone.appendChild(dragged); dragged.style.outline=''; dragged=null; }
+    });
+  });
+
+  function checkSort(){
+    const items = [...document.querySelectorAll('.drag-item')];
+    const allPlaced = items.every(item=>item.parentElement.classList.contains('drop-zone'));
+    if(!allPlaced){
+      return setFeedback(document.getElementById('sortFeedback'),false,'Place every action into a category first.');
+    }
+    const correct = items.every(item=>item.dataset.category===item.parentElement.dataset.zone);
+    setFeedback(document.getElementById('sortFeedback'),correct,
+      correct ? 'Excellent. Every action is in the correct category.' : 'Some actions are misplaced. Review and try again.');
+  }
+
+  function resetSort(){
+    const source = document.getElementById('dragItems');
+    document.querySelectorAll('.drag-item').forEach(item=>source.appendChild(item));
+    const box=document.getElementById('sortFeedback');
+    box.className='feedback';box.textContent='';
+  }
+
+  function gradeQuiz(){
+    const answers = {q1:'b',q2:'b',q3:'c',q4:'b',q5:'a'};
+    let score=0;
+    for(const [name,answer] of Object.entries(answers)){
+      const selected=document.querySelector(`input[name="${name}"]:checked`);
+      if(selected && selected.value===answer) score++;
+    }
+    const panel=document.getElementById('scorePanel');
+    panel.classList.remove('hidden');
+    document.getElementById('scoreNumber').textContent=`${score}/5`;
+    document.getElementById('scoreMessage').textContent =
+      score===5 ? 'Excellent—your responses show a strong understanding of safe online practices.'
+      : score>=4 ? 'Well done. Review any missed question and try again for full mastery.'
+      : 'Review the learning sections, then retake the knowledge check.';
+    completed.add(4);updateProgress();
+  }
+
+  function completeModule(){
+    const box=document.getElementById('completeFeedback');
+    setFeedback(box,true,'Module complete. Your responses remain only in this browser session and are not submitted anywhere.');
+    completed.add(5);updateProgress(true);
+  }
+
+  showLesson(0);
+</script>
+</body>
+</html>

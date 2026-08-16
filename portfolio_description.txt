@@ -1,0 +1,23 @@
+DIGITAL PRIVACY & SAFE ONLINE PRACTICES
+Interactive Professional Learning Sample
+
+Purpose:
+A self-paced, platform-neutral learning module that demonstrates the ability to create accessible digital learning content and support learner engagement.
+
+Key features:
+• Three measurable learning objectives
+• Plain-language instructional content
+• Password-strength scenario
+• Phishing warning-sign activity
+• Drag-and-drop sorting exercise
+• Five-question final knowledge check
+• Automatic scoring and feedback
+• Learner reflection and evaluation questions
+• Responsive and keyboard-friendly design
+• No collection or transmission of personal information
+
+Resume project bullet:
+Created a responsive interactive learning module with scenario-based instruction, knowledge checks, drag-and-drop practice, automatic scoring, learner feedback, and accessible navigation to demonstrate digital-learning content development and platform support capabilities.
+
+Portfolio caption:
+Digital Privacy & Safe Online Practices is an original, self-contained learning module designed to demonstrate professional-learning support, interactive content development, user-centred communication, and quality assurance.
